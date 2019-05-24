@@ -44,3 +44,21 @@ class Fazer_consulta_com_param(Resource):
             return dict(erro = response)
         except:
             return dict(erro = 'Tente novamente mais tarde')
+
+@api.route('/enviar_dados')
+class Enviar_dados(Resource):
+    @api.expect(exemplo_modelo)
+    @api.response(200, '{"status": "Ok"}')
+    @api.response(400, '{"erro": "Tente novamente mais tarde"}')
+    @api.response(400, '{"erro": "requisição inválida"}')
+    def post(self):
+        try:
+            if request.is_json and len(request.data) > 0:
+                req = request.get_json()
+                print(req)
+                return dict(status = 'Ok'), 200
+
+            return dict(erro = 'requisição inválida'), 400
+        except:
+            return dict(erro = 'Tente novamente mais tarde'), 400
+        
