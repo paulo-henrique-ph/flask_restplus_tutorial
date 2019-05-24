@@ -13,3 +13,15 @@ exemplo_modelo = api.model('Exemplo', {
         description = 'Nome da pessoa'
     )
 })
+
+@api.route('/consulta')
+class Fazer_consulta(Resource):
+    @api.response(200, '{"status": "Ok"}')
+    @api.response(400, '{"erro": "Tente novamente mais tarde"}')
+    def get(self):
+        '''Explicação específica deste endpoint.
+        '''
+        try:
+            return dict(status = 'Ok'), 200
+        except:
+            return dict(erro = 'Tente novamente mais tarde')
