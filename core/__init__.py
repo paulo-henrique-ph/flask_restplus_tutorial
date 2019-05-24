@@ -1,0 +1,1 @@
+from .exemplo_controlador import Classe_exemplo

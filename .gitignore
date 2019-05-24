@@ -1,0 +1,8 @@
+# vs code
+.vscode
+
+# cache
+__pycache__
+
+# ambiente virtual
+virtualenv
