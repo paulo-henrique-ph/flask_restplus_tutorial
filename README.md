@@ -88,6 +88,20 @@ No projeto o `app.py` é responsável pela aplicação principal, na pasta `apis
 ### <a name="classes">Classes</a>
 As classes tem o mesmo princípio de outras linguagens orientadas a objeto porém um módulo pode conter mais de uma classe conforme sua afinidade, seu método construtor é caracterizado pela função `__init__`
 - Classe 
+```python
+class Classe_exemplo:
+    def __init__(self):
+        self.url = 'https://api.ipify.org'
+    
+    def consulta_com_nome(self):
+        util = Utilitario()
+        util.ser_util()
+        try:
+            response = requests.get(self.url)
+            return json.loads(response.content), True
+        except:
+            return 'Não conseguimos nos conectar', False
+```
 
 - Herança
 ```python
