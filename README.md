@@ -143,18 +143,19 @@ class Circulo(Forma_geometrica):
 ```
 
 ### <a name="docstrings">Doc Strings</a>
-Deentre os modelos de documentação
+Dentre os modelos de documentação um dos mais utilizados é o padraão da Google
 
 ## Publicação
 #TODO
 
 ## Referências e links úteis:
-- [Python](https://docs.python.org/3/)
-- [Udacity](https://www.udacity.com/course/introduction-to-python--ud1110)
-- [PEP8](https://www.python.org/dev/peps/pep-0008/)
 - [Flask](http://flask.pocoo.org/)
 - [flask_restplus](https://flask-restplus.readthedocs.io/en/stable/)
+- [Google Doc String](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
+- [Python](https://docs.python.org/3/)
+- [PEP8](https://www.python.org/dev/peps/pep-0008/)
 - [Requests](https://2.python-requests.org/en/master/)
+- [Udacity](https://www.udacity.com/course/introduction-to-python--ud1110)
 
 ## Autor
 - **Paulo Henrique** - [PH](https://github.com/paulo-henrique-ph)
