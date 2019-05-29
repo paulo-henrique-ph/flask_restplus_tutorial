@@ -1,1 +1,1 @@
-from .exemplo_controlador import Classe_exemplo
+from .exemplo_controlador import ClasseExemplo
