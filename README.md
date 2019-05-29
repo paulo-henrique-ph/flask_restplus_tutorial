@@ -1,6 +1,6 @@
 # Tutorial de flask e flask_restplus
 ## Descrição
-Este repositório tem como objetivo somente **exemplificar o funcionamento e desenvolvimento de uma aplicação Python com flask e flask_restplus**, assim como publicar em um servidor Nginx com UWSGI em um servidor Ubuntu 18.04 LTS.
+Este repositório tem como objetivo somente **exemplificar o funcionamento e desenvolvimento de uma aplicação Python com flask e flask_restplus**, assim como publicar em um servidor Nginx com uWSGI em um servidor Ubuntu 18.04 LTS.
 
 ## Requisitos
 ### Desenvolvimento
@@ -9,13 +9,14 @@ Este repositório tem como objetivo somente **exemplificar o funcionamento e des
 ### Publicação
 - [Ubuntu 18.04 LTS](http://releases.ubuntu.com/18.04/)
 
-## Conteudo
+## Conteúdo
 - [Ambiente virtual](#ambientevirtual)
 - [Organização do projeto](#organizacaodoprojeto)
 - [Classes](#classes)
 - [Doc Strings](#docstrings)
-- [UWSGI](#uwsgi)
+- [uWSGI](#uwsgi)
 - [Nginx](#nginx)
+
 
 ## Desenvolvimento
 ### <a name="ambientevirtual">Ambiente virtual</a>
@@ -40,7 +41,7 @@ Para criar um ambiente virtual em Windows utiliza os seguintes passos:
 Para criar um ambiente virtual em Linux utiliza os seguintes passos:
 - instalar o pacote venv:
 ```bash
-$ apt-get install python3-dev python3-venv
+$ apt install python3-dev python3-venv
 $ pip install virtualenv
 ```
 - criar o ambiente virtual:
@@ -89,7 +90,7 @@ No projeto o `app.py` é responsável pela aplicação principal, na pasta `apis
 As classes tem o mesmo princípio de outras linguagens orientadas a objeto porém um módulo pode conter mais de uma classe conforme sua afinidade, seu método construtor é caracterizado pela função `__init__`
 - Classe 
 ```python
-class Classe_exemplo:
+class ClasseExemplo:
     def __init__(self):
         self.url = 'https://api.ipify.org'
     
@@ -134,12 +135,12 @@ class Gato(animal.Animal):
 
 - Polimorfismo
 ```python
-class Forma_geometrica:
+class FormaGeometrica:
 def calcular_area(self):
     pass
 ```
 ```python
-class Retangulo(Forma_geometrica):
+class Retangulo(FormaGeometrica):
     def __init__(self, base, altura):
         self.base = base
         self.altura = altura
@@ -148,7 +149,7 @@ class Retangulo(Forma_geometrica):
         return self.base * self.altura
 
 
-class Circulo(Forma_geometrica):
+class Circulo(FormaGeometrica):
     def __init__(self, raio):
         self.raio = raio
     
@@ -160,7 +161,88 @@ class Circulo(Forma_geometrica):
 Dentre os modelos de documentação um dos mais utilizados é o padraão da Google
 
 ## Publicação
-#TODO
+### <a name="uwsgi">uWSGI</a>
+#### Pré requisitos da máquina
+Após ter seu projeto inserido na máquina precisa-se de alguns passos antes de implementar a aplicação.
+
+- Instalar os pacotes de virtual enviroment
+```
+$ sudo apt update
+$ sudo apt install python-pip
+$ pip install virtualenv
+$ sudo apt install python3-venv
+$ sudo apt install python3-dev
+```
+- Criar o diretório da aplicação
+```bash
+$ mkdir -p /var/www/html/exemplo
+```
+
+- Mover os arquivos para seus devidos lugares
+Todos os arquivos referentes a aplicação assim como `exemplo.ini` deverão ficar no diretório `/var/www/html/exemplo`
+
+- Criar enviroment
+```bash
+$ cd /var/www/html/exemplo
+$ python3 -m venv virtualenv
+```
+
+- Ativar o enviroment e instalar as dependências
+```bash
+$ source virtualenv/bin/activate
+$ pip install wheel
+$ pip install uwsgi
+$ pip install -r requirements.txt
+$ deactivate
+```
+
+-Ativar o serviço
+após copiar o `exemplo.service` para o diretório `/etc/systemd/system` precisará mudar algumas autorizações no qual será necessário [**Root**](https://help.ubuntu.com/community/RootSudo)
+
+```bash
+$ chown -R www-data:www-data /var/www/html/exemplo
+$ systemctl daemon-reload
+$ systemctl start exemplo
+$ systemctl enable exemplo
+```
+
+### <a name="nginx">Nginx</a>
+#### Instalando e configurando o Nginx
+Para instalar e configurar o Nginx  a fim de disponibilzar sua aplicação ao público precisa seguir os seguintes passos
+
+- Instalar o Nginx
+```bash
+$ apt install nginx
+```
+
+- Remover o site default do nginx
+```bash
+$ rm /etc/nginx/sites-available/default
+$ rm /etc/nginx/sites-enabled/default
+$ sudo ufw 'Nginx Full'
+$ sudo systemctl restart nginx
+```
+- Editar o arquivo de configuração do Nginx
+```bash
+$ sudo vim /etc/nginx/nginx.conf
+```
+
+Adicionar logo abaixo do "http {"
+```
+client_max_body_size 16M;
+```
+
+Reiniciar o serviço
+```bash
+$ sudo systemctl restart nginx
+```
+
+- Ativar o site
+Após copiar o `exemplo.conf` para o diretório `/etc/nginx/sites-available` executar os seguintes comandos
+```bash
+$ ln -s /etc/nginx/sites-available/exemplo.conf /etc/nginx/sites-enabled/exemplo.conf
+$ sudo systemctl reload nginx
+```
 
 ## Referências e links úteis:
 - [Flask](http://flask.pocoo.org/)

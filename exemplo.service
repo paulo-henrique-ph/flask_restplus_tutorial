@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve example
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/html/exemplo
+Enviroment="PATH=/var/www/html/exemplo/virtualenv/bin"
+ExecStart=/var/www/html/exemplo/virtualenv/bin/uwsgi --ini exemplo.ini
+
+[Install]
+WantedBy=multi-user.target
