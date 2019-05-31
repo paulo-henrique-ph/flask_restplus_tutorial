@@ -196,7 +196,7 @@ $ pip install -r requirements.txt
 $ deactivate
 ```
 
--Ativar o serviço
+- Ativar o serviço
 após copiar o `exemplo.service` para o diretório `/etc/systemd/system` precisará mudar algumas autorizações no qual será necessário [**Root**](https://help.ubuntu.com/community/RootSudo)
 
 ```bash
@@ -251,7 +251,9 @@ $ sudo systemctl reload nginx
 - [Python](https://docs.python.org/3/)
 - [PEP8](https://www.python.org/dev/peps/pep-0008/)
 - [Requests](https://2.python-requests.org/en/master/)
-- [Udacity](https://www.udacity.com/course/introduction-to-python--ud1110)
+- [Udacity Python Fundamentals](https://www.udacity.com/course/introduction-to-python--ud1110)
+- [Udacity - Git Version Control](https://www.udacity.com/course/version-control-with-git--ud123)
+- [Udacity - Github & Collaboration](https://www.udacity.com/course/github-collaboration--ud456)
 
 ## Autor
 - **Paulo Henrique** - [PH](https://github.com/paulo-henrique-ph)
